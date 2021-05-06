@@ -1,5 +1,15 @@
 {
-  "shell-version": ["40", "40.1"],
+  "shell-version": [
+    "3.26",
+    "3.28",
+    "3.30",
+    "3.32",
+    "3.34",
+    "3.36",
+    "3.38",
+    "40",
+    "40.1"
+  ],
   "uuid": "audio-switcher@albertomosconi",
   "name": "Audio Switcher 40",
   "description": "Adds a switch for choosing audio input/output to the system menu in GNOME 40. (Makes InputSlider always visible)",
