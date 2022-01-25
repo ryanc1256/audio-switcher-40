@@ -1,6 +1,7 @@
 const Main = imports.ui.main;
 const PopupMenu = imports.ui.popupMenu;
 const GObject = imports.gi.GObject;
+const Pango = imports.gi.Pango;
 
 const AudioOutputSubMenu = GObject.registerClass({
     GTypeName: 'ASAudioOutputSubMenu',
@@ -24,6 +25,7 @@ const AudioOutputSubMenu = GObject.registerClass({
 		//Unless there is at least one item here, no 'open' will be emitted...
 		let item = new PopupMenu.PopupMenuItem('Connecting...');
 		this.menu.addMenuItem(item);
+		this.label.clutter_text.set_ellipsize(Pango.EllipsizeMode.MIDDLE);
 	}
 
 	_updateDefaultSink() {
@@ -48,6 +50,7 @@ const AudioOutputSubMenu = GObject.registerClass({
 			if (sink === defsink)
 				continue;
 			item = new PopupMenu.PopupMenuItem(sink.get_description());
+			item.label.clutter_text.set_ellipsize(Pango.EllipsizeMode.MIDDLE);
 			item.connect('activate', () => {
 				control.set_default_sink(sink);
 			});
@@ -89,6 +92,7 @@ const AudioInputSubMenu = GObject.registerClass({
 		//Unless there is at least one item here, no 'open' will be emitted...
 		let item = new PopupMenu.PopupMenuItem('Connecting...');
 		this.menu.addMenuItem(item);
+		this.label.clutter_text.set_ellipsize(Pango.EllipsizeMode.MIDDLE);
 	}
 
 	_updateDefaultSource() {
@@ -114,6 +118,7 @@ const AudioInputSubMenu = GObject.registerClass({
 				continue;
 			}
 			item = new PopupMenu.PopupMenuItem(source.get_description());
+			item.label.clutter_text.set_ellipsize(Pango.EllipsizeMode.MIDDLE);
 			item.connect('activate', () => {
 				control.set_default_source(source);
 			});
