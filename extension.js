@@ -17,8 +17,9 @@ const AudioOutputSubMenu = GObject.registerClass({
 		this._updateDefaultSink();
 
 		this.menu.connect('open-state-changed', (menu, isOpen) => {
-			if (isOpen)
+			if (isOpen) {
 				this._updateSinkList();
+			}				
 		});
 
 		//Unless there is at least one item here, no 'open' will be emitted...
@@ -29,10 +30,12 @@ const AudioOutputSubMenu = GObject.registerClass({
 	_updateDefaultSink() {
 		let defsink = this._control.get_default_sink();
 		//Unfortunately, Gvc neglects some pulse-devices, such as all "Monitor of ..."
-		if (defsink == null)
+		if (defsink == null) {
 			this.label.set_text("Other");
-		else
+		}
+		else {
 			this.label.set_text(defsink.get_description());
+		}
 	}
 
 	_updateSinkList() {
@@ -45,16 +48,16 @@ const AudioOutputSubMenu = GObject.registerClass({
 
 		for (let i=0; i<sinklist.length; i++) {
 			let sink = sinklist[i];
-			if (sink === defsink)
+			if (sink === defsink) {
 				continue;
+			}
 			item = new PopupMenu.PopupMenuItem(sink.get_description());
 			item.connect('activate', () => {
 				control.set_default_sink(sink);
 			});
 			this.menu.addMenuItem(item);
 		}
-		if (sinklist.length == 0 ||
-			(sinklist.length == 1 && sinklist[0] === defsink)) {
+		if (sinklist.length == 0 || (sinklist.length == 1 && sinklist[0] === defsink)) {
 			item = new PopupMenu.PopupMenuItem("No more Devices");
 			this.menu.addMenuItem(item);
 		}
@@ -82,8 +85,9 @@ const AudioInputSubMenu = GObject.registerClass({
 		this._updateDefaultSource();
 
 		this.menu.connect('open-state-changed', (menu, isOpen) => {
-			if (isOpen)
+			if (isOpen) {
 				this._updateSourceList();
+			}
 		});
 
 		//Unless there is at least one item here, no 'open' will be emitted...
@@ -94,10 +98,11 @@ const AudioInputSubMenu = GObject.registerClass({
 	_updateDefaultSource() {
 		let defsource = this._control.get_default_source();
 		//Unfortunately, Gvc neglects some pulse-devices, such as all "Monitor of ..."
-		if (defsource == null)
+		if (defsource == null) {
 			this.label.set_text("Other");
-		else
+		} else {
 			this.label.set_text(defsource.get_description());
+		}
 	}
 
 	_updateSourceList() {
@@ -119,8 +124,7 @@ const AudioInputSubMenu = GObject.registerClass({
 			});
 			this.menu.addMenuItem(item);
 		}
-		if (sourcelist.length == 0 ||
-			(sourcelist.length == 1 && sourcelist[0] === defsource)) {
+		if (sourcelist.length == 0 || (sourcelist.length == 1 && sourcelist[0] === defsource)) {
 			item = new PopupMenu.PopupMenuItem("No more Devices");
 			this.menu.addMenuItem(item);
 		}
@@ -136,20 +140,21 @@ var audioOutputSubMenu = null;
 var audioInputSubMenu = null;
 var savedUpdateVisibility = null;
 
-function init() {
-}
+function init() {}
 
 function enable() {
-	if ((audioInputSubMenu != null) || (audioOutputSubMenu != null))
+	if ((audioInputSubMenu != null) || (audioOutputSubMenu != null)) {
 		return;
+	}
 	audioInputSubMenu = new AudioInputSubMenu();
 	audioOutputSubMenu = new AudioOutputSubMenu();
 
-	//Try to add the switchers right below the sliders...
+	// Try to add the switchers right below the sliders...
 	let volMen = Main.panel.statusArea.aggregateMenu._volume._volumeMenu;
 	let items = volMen._getMenuItems();
 	let i = 0;
 	let addedInput, addedOutput = false;
+	
 	while (i < items.length){
 		if (items[i] === volMen._output.item){
 			volMen.addMenuItem(audioOutputSubMenu, i+1);
@@ -158,9 +163,11 @@ function enable() {
 			volMen.addMenuItem(audioInputSubMenu, i+2);
 			addedInput = true;
 		}
+
 		if (addedOutput && addedInput){
 			break;
 		}
+
 		i++;
 	}
 
