@@ -9,6 +9,9 @@
 ![The input menu](http://imgur.com/4jazC67.png)
 
 ## Compatibility
+  - Gnome Shell 42
+  - Gnome Shell 41
+  - Gnome Shell 40
   - Gnome Shell 3.26
   - Gnome Shell 3.28
   - Gnome Shell 3.30
