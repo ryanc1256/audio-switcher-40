@@ -43,6 +43,7 @@ All the credits is for anduchs, this extension is based on his work at [Audio Ou
 add support for the lastest versions of Gnome-shell.
 
 **Thanks to:**
+* [Albertomosconi](https://github.com/albertomosconi)
 * [ChuckDaniels87](https://github.com/ChuckDaniels87)
 * [Martin Wilck](https://github.com/mwilck)
 * [Stefan Betz](https://github.com/encbladexp)
